@@ -2,13 +2,20 @@
   <div>
     <Tabs>
       <Tab title="Basics" icon="user">
-        <VueFormGenerator
-          :schema="schemas.basics"
-          :model="resume.content.basics"
-          :options="options"
-        />
+        <div class="pb-5 pt-3">
+          <VueFormGenerator
+            :schema="schemas.basics"
+            :model="resume.content.basics"
+            :options="options"
+          />
+          <VueFormGenerator
+            :schema="schemas.location"
+            :model="resume.content.basics.location"
+            :options="options"
+          />
+        </div>
       </Tab>
-      <Tab title="Work" icon="briefcase"></Tab>
+      <Tab title="Work" icon="briefcase"> </Tab>
       <Tab title="Education" icon="building"></Tab>
       <Tab title="Awards" icon="award"></Tab>
       <Tab title="Skills" icon="bolt"></Tab>
@@ -22,6 +29,7 @@ import Tab from "./tabs/Tab";
 import { component as VueFormGenerator } from "vue-form-generator";
 import "vue-form-generator/dist/vfg.css";
 import basics from "./schema/basics/basics";
+import location from "./schema/basics/location";
 export default {
   name: "ResumeForm",
   components: {
@@ -34,11 +42,14 @@ export default {
       resume: {
         title: "",
         content: {
-          basics: {},
+          basics: {
+            location: {},
+          },
         },
       },
       schemas: {
         basics: basics,
+        location: location,
       },
       options: {
         validateAfterLoad: true,
@@ -50,9 +61,6 @@ export default {
 };
 </script>
 <style>
-.vue-form-generator {
-  margin-top: 1rem;
-}
 .form-control {
   background-color: transparent !important;
   transition: all 0.3s ease-in-out !important;

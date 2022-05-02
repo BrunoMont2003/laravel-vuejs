@@ -1,5 +1,12 @@
 export default {
   fields: [
+    // Picture
+    {
+      type: "resume-image",
+      label: "Resume Profile Image",
+      model: "picture",
+    },
+
     // Name
     {
       type: "input",
