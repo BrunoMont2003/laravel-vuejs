@@ -38,6 +38,10 @@ Vue.component(
   "ResumeForm",
   require("./components/resume/ResumeForm.vue").default
 );
+Vue.component(
+  "FieldResumeImage",
+  require("./components/resume/vfg/FieldResumeImage.vue").default
+);
 Vue.component("FontAwesomeIcon", FontAwesomeIcon);
 
 /**
