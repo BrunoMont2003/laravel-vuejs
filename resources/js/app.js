@@ -4,10 +4,25 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
+import { library } from "@fortawesome/fontawesome-svg-core";
 
-window.Vue = require('vue').default;
+import {
+  faUser,
+  faBriefcase,
+  faAward,
+  faBuilding,
+  faBolt,
+} from "@fortawesome/free-solid-svg-icons";
 
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+window.Vue = require("vue").default;
+library.add(faUser);
+library.add(faBriefcase);
+library.add(faAward);
+library.add(faBuilding);
+library.add(faBolt);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,7 +34,11 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component(
+  "ResumeForm",
+  require("./components/resume/ResumeForm.vue").default
+);
+Vue.component("FontAwesomeIcon", FontAwesomeIcon);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +47,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+  el: "#app",
 });
