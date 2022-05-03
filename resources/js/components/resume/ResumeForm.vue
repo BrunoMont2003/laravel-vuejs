@@ -32,9 +32,31 @@
           :subforms="subforms.highlights"
         />
       </Tab>
-      <Tab title="Education" icon="building"></Tab>
-      <Tab title="Awards" icon="award"></Tab>
-      <Tab title="Skills" icon="bolt"></Tab>
+      <Tab title="Education" icon="building">
+        <DynamicForm
+          title="Education"
+          self="education"
+          :model="resume.content"
+          :schema="schemas.education"
+          :subforms="subforms.courses"
+        />
+      </Tab>
+      <Tab title="Awards" icon="award">
+        <VueFormGenerator
+          title="Awards"
+          :model="resume.awards"
+          :schema="schemas.awards"
+        />
+      </Tab>
+      <Tab title="Skills" icon="bolt">
+        <DynamicForm
+          title="Skill"
+          self="skills"
+          :model="resume.content"
+          :schema="schemas.skills"
+          :subforms="subforms.keywords"
+        />
+      </Tab>
     </Tabs>
   </div>
 </template>
@@ -50,6 +72,9 @@ import DynamicForm from "./dynamic/DynamicForm";
 import profiles from "./schema/basics/profiles";
 import work from "./schema/work";
 import ListForm from "./dynamic/ListForm";
+import education from "./schema/education";
+import awards from "./schema/awards";
+import skills from "./schema/skills";
 export default {
   name: "ResumeForm",
   components: {
@@ -69,6 +94,9 @@ export default {
             profiles: [],
           },
           work: [],
+          education: [],
+          awards: {},
+          skills: [],
         },
       },
       schemas: {
@@ -76,6 +104,9 @@ export default {
         location,
         profiles,
         work,
+        education,
+        awards,
+        skills,
       },
       subforms: {
         highlights: [
@@ -85,6 +116,26 @@ export default {
               self: "highlights",
               title: "Highlights",
               placeholder: "Started company",
+            },
+          },
+        ],
+        courses: [
+          {
+            component: ListForm,
+            props: {
+              self: "courses",
+              title: "Courses",
+              placeholder: "Frontend",
+            },
+          },
+        ],
+        keywords: [
+          {
+            component: ListForm,
+            props: {
+              self: "keywords",
+              title: "Keywords",
+              placeholder: "React Js",
             },
           },
         ],
