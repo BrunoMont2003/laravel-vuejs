@@ -15,7 +15,23 @@
           />
         </div>
       </Tab>
-      <Tab title="Work" icon="briefcase"> </Tab>
+      <Tab title="Profiles" icon="hashtag">
+        <DynamicForm
+          title="Profiles"
+          :model="resume.content.basics"
+          :schema="schemas.profiles"
+          self="profile"
+        />
+      </Tab>
+      <Tab title="Work" icon="briefcase">
+        <DynamicForm
+          title="Work"
+          self="work"
+          :model="resume.content"
+          :schema="schemas.work"
+          :subforms="subforms.highlights"
+        />
+      </Tab>
       <Tab title="Education" icon="building"></Tab>
       <Tab title="Awards" icon="award"></Tab>
       <Tab title="Skills" icon="bolt"></Tab>
@@ -30,12 +46,18 @@ import { component as VueFormGenerator } from "vue-form-generator";
 import "vue-form-generator/dist/vfg.css";
 import basics from "./schema/basics/basics";
 import location from "./schema/basics/location";
+import DynamicForm from "./dynamic/DynamicForm";
+import profiles from "./schema/basics/profiles";
+import work from "./schema/work";
+import ListForm from "./dynamic/ListForm";
 export default {
   name: "ResumeForm",
   components: {
     Tabs,
     Tab,
     VueFormGenerator,
+    DynamicForm,
+    ListForm,
   },
   data() {
     return {
@@ -44,12 +66,28 @@ export default {
         content: {
           basics: {
             location: {},
+            profiles: [],
           },
+          work: [],
         },
       },
       schemas: {
-        basics: basics,
-        location: location,
+        basics,
+        location,
+        profiles,
+        work,
+      },
+      subforms: {
+        highlights: [
+          {
+            component: ListForm,
+            props: {
+              self: "highlights",
+              title: "Highlights",
+              placeholder: "Started company",
+            },
+          },
+        ],
       },
       options: {
         validateAfterLoad: true,

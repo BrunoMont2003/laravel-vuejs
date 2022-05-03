@@ -13,6 +13,8 @@ import {
   faAward,
   faBuilding,
   faBolt,
+  faTrash,
+  faHashtag,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -23,6 +25,8 @@ library.add(faBriefcase);
 library.add(faAward);
 library.add(faBuilding);
 library.add(faBolt);
+library.add(faTrash);
+library.add(faHashtag);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -41,6 +45,10 @@ Vue.component(
 Vue.component(
   "FieldResumeImage",
   require("./components/resume/vfg/FieldResumeImage.vue").default
+);
+Vue.component(
+  "ListForm",
+  require("./components/resume/dynamic/ListForm.vue").default
 );
 Vue.component("FontAwesomeIcon", FontAwesomeIcon);
 
