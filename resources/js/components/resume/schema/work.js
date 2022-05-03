@@ -23,8 +23,8 @@ export default {
       type: "input",
       inputType: "url",
       placeholder: "http://www.website.com",
-      label: "Position",
-      model: "position",
+      label: "Website",
+      model: "website",
       styleClasses: ["col-12", "col-md-4", "px-1"],
     },
     // startDate
