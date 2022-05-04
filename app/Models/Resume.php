@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Resume extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "title", "content"
+    ];
+
+    protected $casts = ["content" => "array"];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

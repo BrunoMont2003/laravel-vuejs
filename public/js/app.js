@@ -20250,6 +20250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _schema_education__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./schema/education */ "./resources/js/components/resume/schema/education.js");
 /* harmony import */ var _schema_awards__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./schema/awards */ "./resources/js/components/resume/schema/awards.js");
 /* harmony import */ var _schema_skills__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./schema/skills */ "./resources/js/components/resume/schema/skills.js");
+/* harmony import */ var _jsonresume__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./jsonresume */ "./resources/js/components/resume/jsonresume.js");
 //
 //
 //
@@ -20313,6 +20314,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -20335,21 +20338,30 @@ __webpack_require__.r(__webpack_exports__);
     DynamicForm: _dynamic_DynamicForm__WEBPACK_IMPORTED_MODULE_6__["default"],
     ListForm: _dynamic_ListForm__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
+  props: {
+    update: false,
+    resume: {
+      type: Object,
+      id: null,
+      title: "Resume Title",
+      content: _jsonresume__WEBPACK_IMPORTED_MODULE_13__["default"]
+    }
+  },
   data: function data() {
     return {
-      resume: {
-        title: "",
-        content: {
-          basics: {
-            location: {},
-            profiles: []
-          },
-          work: [],
-          education: [],
-          awards: {},
-          skills: []
-        }
-      },
+      // resume: {
+      //   title: "",
+      //   content: {
+      //     basics: {
+      //       location: {},
+      //       profiles: [],
+      //     },
+      //     work: [],
+      //     education: [],
+      //     awards: {},
+      //     skills: [],
+      //   },
+      // },
       schemas: {
         basics: _schema_basics_basics__WEBPACK_IMPORTED_MODULE_4__["default"],
         location: _schema_basics_location__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -20854,6 +20866,72 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/resume/jsonresume.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/resume/jsonresume.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  basics: {
+    name: "",
+    label: "",
+    picture: "/storage/pictures/cat.png",
+    email: "",
+    phone: "",
+    website: "",
+    summary: "",
+    location: {
+      address: "",
+      postalCode: "",
+      city: "",
+      countryCode: "",
+      region: ""
+    },
+    profiles: [{
+      network: "",
+      username: "",
+      url: ""
+    }]
+  },
+  work: [{
+    company: "",
+    position: "",
+    website: "",
+    startDate: "",
+    endDate: "",
+    summary: "",
+    highlights: [""]
+  }],
+  education: [{
+    institution: "",
+    area: "",
+    studyType: "",
+    startDate: "",
+    endDate: "",
+    gpa: "",
+    courses: [""]
+  }],
+  awards: [{
+    title: "",
+    date: "",
+    awarder: "",
+    summary: ""
+  }],
+  skills: [{
+    name: "",
+    level: "",
+    keywords: [""]
+  }]
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/resume/schema/awards.js":
 /*!*********************************************************!*\
   !*** ./resources/js/components/resume/schema/awards.js ***!
@@ -20950,7 +21028,7 @@ __webpack_require__.r(__webpack_exports__);
     inputType: "tel",
     placeholder: "987654321",
     label: "Phone",
-    model: "Phone",
+    model: "phone",
     styleClasses: ["col-12", "col-md-4", "px-1"]
   }, // website
   {
@@ -31183,8 +31261,9 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form-control {\n  background-color: transparent !important;\n  transition: all 0.3s ease-in-out !important;\n}\n.form-control:focus {\n  background-color: rgb(255, 255, 255) !important;\n  box-shadow: rgba(13, 110, 253, 0.3) 0px 0px 0px 3px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form-control {\n  background-color: transparent !important;\n  transition: all 0.3s ease-in-out !important;\n  color: #000 !important;\n  font-family: \"Source Code Pro\", monospace !important;\n}\ninput[type=\"tel\"].form-control,\ninput[type=\"url\"].form-control,\ninput[type=\"date\"].form-control,\ninput[type=\"email\"].form-control,\ninput[type=\"text\"].form-control {\n  min-height: 2.5rem !important;\n}\n.form-control:focus {\n  background-color: rgb(255, 255, 255) !important;\n  box-shadow: rgba(13, 110, 253, 0.3) 0px 0px 0px 3px;\n}\n.form-group label {\n  font-weight: bold;\n  margin-bottom: 0.5em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -49627,10 +49706,10 @@ var render = function () {
             [
               _c("DynamicForm", {
                 attrs: {
-                  title: "Profiles",
+                  title: "Profile",
+                  self: "profiles",
                   model: _vm.resume.content.basics,
                   schema: _vm.schemas.profiles,
-                  self: "profile",
                 },
               }),
             ],
@@ -49675,10 +49754,11 @@ var render = function () {
             "Tab",
             { attrs: { title: "Awards", icon: "award" } },
             [
-              _c("VueFormGenerator", {
+              _c("DynamicForm", {
                 attrs: {
-                  title: "Awards",
-                  model: _vm.resume.awards,
+                  title: "Award",
+                  self: "awards",
+                  model: _vm.resume.content,
                   schema: _vm.schemas.awards,
                 },
               }),

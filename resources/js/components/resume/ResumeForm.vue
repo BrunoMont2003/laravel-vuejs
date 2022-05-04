@@ -17,10 +17,10 @@
       </Tab>
       <Tab title="Profiles" icon="hashtag">
         <DynamicForm
-          title="Profiles"
+          title="Profile"
+          self="profiles"
           :model="resume.content.basics"
           :schema="schemas.profiles"
-          self="profile"
         />
       </Tab>
       <Tab title="Work" icon="briefcase">
@@ -42,9 +42,10 @@
         />
       </Tab>
       <Tab title="Awards" icon="award">
-        <VueFormGenerator
-          title="Awards"
-          :model="resume.awards"
+        <DynamicForm
+          title="Award"
+          self="awards"
+          :model="resume.content"
           :schema="schemas.awards"
         />
       </Tab>
@@ -75,6 +76,7 @@ import ListForm from "./dynamic/ListForm";
 import education from "./schema/education";
 import awards from "./schema/awards";
 import skills from "./schema/skills";
+import jsonresume from "./jsonresume";
 export default {
   name: "ResumeForm",
   components: {
@@ -84,21 +86,30 @@ export default {
     DynamicForm,
     ListForm,
   },
+  props: {
+    update: false,
+    resume: {
+      type: Object,
+      id: null,
+      title: "Resume Title",
+      content: jsonresume,
+    },
+  },
   data() {
     return {
-      resume: {
-        title: "",
-        content: {
-          basics: {
-            location: {},
-            profiles: [],
-          },
-          work: [],
-          education: [],
-          awards: {},
-          skills: [],
-        },
-      },
+      // resume: {
+      //   title: "",
+      //   content: {
+      //     basics: {
+      //       location: {},
+      //       profiles: [],
+      //     },
+      //     work: [],
+      //     education: [],
+      //     awards: {},
+      //     skills: [],
+      //   },
+      // },
       schemas: {
         basics,
         location,
@@ -150,12 +161,26 @@ export default {
 };
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 .form-control {
   background-color: transparent !important;
   transition: all 0.3s ease-in-out !important;
+  color: #000 !important;
+  font-family: "Source Code Pro", monospace !important;
+}
+input[type="tel"].form-control,
+input[type="url"].form-control,
+input[type="date"].form-control,
+input[type="email"].form-control,
+input[type="text"].form-control {
+  min-height: 2.5rem !important;
 }
 .form-control:focus {
   background-color: rgb(255, 255, 255) !important;
   box-shadow: rgba(13, 110, 253, 0.3) 0px 0px 0px 3px;
+}
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5em;
 }
 </style>
