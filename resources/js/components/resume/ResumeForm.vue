@@ -1,5 +1,36 @@
 <template>
   <div>
+    <div>
+      <Alert
+        v-if="
+          (Array.isArray(alert.messages) && alert.messages.length > 0) ||
+          typeof alert.messages === 'string'
+        "
+        :messages="alert.messages"
+        :type="alert.type"
+        @close="alert.messages = []"
+      />
+    </div>
+    <div class="row mb-3">
+      <div class="col-sm-8">
+        <div class="form-group">
+          <input
+            type="text"
+            v-model="resume.title"
+            placeholder="Resume Title"
+            required
+            autofocus
+            class="form-control w-100"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-success btn-block" @click="submit()">
+          <span>Submit</span>
+          <FontAwesomeIcon icon="upload" />
+        </button>
+      </div>
+    </div>
     <Tabs>
       <Tab title="Basics" icon="user">
         <div class="pb-5 pt-3">
@@ -77,6 +108,8 @@ import education from "./schema/education";
 import awards from "./schema/awards";
 import skills from "./schema/skills";
 import jsonresume from "./jsonresume";
+import axios from "axios";
+import Alert from "../reusable/Alert";
 export default {
   name: "ResumeForm",
   components: {
@@ -85,6 +118,7 @@ export default {
     VueFormGenerator,
     DynamicForm,
     ListForm,
+    Alert,
   },
   props: {
     update: false,
@@ -110,6 +144,10 @@ export default {
       //     skills: [],
       //   },
       // },
+      alert: {
+        type: "warning",
+        messages: [],
+      },
       schemas: {
         basics,
         location,
@@ -157,6 +195,17 @@ export default {
         validateAsync: true,
       },
     };
+  },
+  methods: {
+    async submit() {
+      try {
+        const { data } = await axios.post("/resumes", this.resume);
+        console.log(data);
+      } catch (error) {
+        console.log(error.message);
+        this.alert.messages = ["Something went wrong: "];
+      }
+    },
   },
 };
 </script>
