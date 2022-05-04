@@ -41,7 +41,7 @@ export default {
       inputType: "tel",
       placeholder: "987654321",
       label: "Phone",
-      model: "Phone",
+      model: "phone",
       styleClasses: ["col-12", "col-md-4", "px-1"],
     },
     // website
