@@ -201,6 +201,7 @@ export default {
       try {
         const { data } = await axios.post("/resumes", this.resume);
         console.log(data);
+        window.location = "/home";
       } catch (error) {
         console.log(error.message);
         this.alert.messages = ["Something went wrong: "];

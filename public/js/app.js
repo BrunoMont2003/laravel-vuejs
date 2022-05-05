@@ -20483,21 +20483,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data;
                 console.log(data);
-                _context.next = 12;
+                window.location = "/home";
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0.message);
                 _this.alert.messages = ["Something went wrong: "];
 
-              case 12:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 9]]);
       }))();
     }
   }
