@@ -199,9 +199,13 @@ export default {
   methods: {
     async submit() {
       try {
-        const { data } = await axios.post("/resumes", this.resume);
+        const { data, status } = this.update
+          ? await axios.put("/resumes/" + this.resume.id, this.resume)
+          : await axios.post("/resumes", this.resume);
         console.log(data);
-        window.location = "/home";
+        if (status >= 200 && status < 300) {
+          window.location = "/home";
+        }
       } catch (error) {
         console.log(error.message);
         this.alert.messages = ["Something went wrong: "];

@@ -15,10 +15,19 @@ class ResumeController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function index()
+    {
+        $resumes = auth()->user()->resumes;
+        return view("resumes.index", compact('resumes'));
+    }
+
     public function create()
     {
         $resume = json_encode(Resume::factory()->make());
         return view('resumes.create', compact('resume'));
+
+        // return view('resumes.create');
     }
     private function savePicture($blob)
     {
@@ -28,6 +37,7 @@ class ResumeController extends Controller
         $file_path = "/var/www/storage/app/public/pictures";
         $file_name = Str::uuid();
         file_put_contents("$file_path/$file_name.png", $blob);
+        $file_path = "/storage/pictures";
         return "$file_path/$file_name.png";
     }
     public function store(StoreResume $request)
@@ -42,6 +52,28 @@ class ResumeController extends Controller
             // dd($data);
             $resume = auth()->user()->resumes()->create($data);
             return response($resume, Response::HTTP_CREATED);
+        } catch (\Throwable $th) {
+            return response($th, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    public function edit(Resume $resume)
+    {
+        $this->authorize("update", $resume);
+        return view('resumes.edit', compact('resume'));
+    }
+
+    public function update(Resume $resume, StoreResume $request)
+    {
+        $this->authorize("update", $resume);
+        try {
+            $data = $request->validated();
+            $picture = $data['content']['basics']['picture'];
+            if ($resume->content['basics']['picture'] !== $picture) {
+                $uri = $this->savePicture($picture);
+                $data['content']["basics"]["picture"] = $uri;
+            }
+            $resume->update($data);
+            return response($data, Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response($th);
         }

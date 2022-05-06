@@ -20469,36 +20469,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _yield$axios$post, data;
+        var _ref, data, status;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_15___default().post("/resumes", _this.resume);
 
-              case 3:
-                _yield$axios$post = _context.sent;
-                data = _yield$axios$post.data;
-                console.log(data);
-                window.location = "/home";
-                _context.next = 13;
+                if (!_this.update) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_15___default().put("/resumes/" + _this.resume.id, _this.resume);
+
+              case 4:
+                _context.t0 = _context.sent;
+                _context.next = 10;
                 break;
 
+              case 7:
+                _context.next = 9;
+                return axios__WEBPACK_IMPORTED_MODULE_15___default().post("/resumes", _this.resume);
+
               case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0.message);
+                _context.t0 = _context.sent;
+
+              case 10:
+                _ref = _context.t0;
+                data = _ref.data;
+                status = _ref.status;
+                console.log(data);
+
+                if (status >= 200 && status < 300) {
+                  window.location = "/home";
+                }
+
+                _context.next = 21;
+                break;
+
+              case 17:
+                _context.prev = 17;
+                _context.t1 = _context["catch"](0);
+                console.log(_context.t1.message);
                 _this.alert.messages = ["Something went wrong: "];
 
-              case 13:
+              case 21:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 17]]);
       }))();
     }
   }
@@ -20788,7 +20811,9 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [vue_form_generator__WEBPACK_IMPORTED_MODULE_0__.abstractField],
   data: function data() {
     return {
-      image: "https://i.pinimg.com/originals/74/e9/cb/74e9cbb3ea62e9b44e39ace1cc4fdad7.png",
+      image: this.model[this.schema.model],
+      // image:
+      //   "https://i.pinimg.com/originals/74/e9/cb/74e9cbb3ea62e9b44e39ace1cc4fdad7.png",
       reader: new FileReader()
     };
   },

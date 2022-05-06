@@ -16,8 +16,9 @@ export default {
   mixins: [abstractField],
   data() {
     return {
-      image:
-        "https://i.pinimg.com/originals/74/e9/cb/74e9cbb3ea62e9b44e39ace1cc4fdad7.png",
+      image: this.model[this.schema.model],
+      // image:
+      //   "https://i.pinimg.com/originals/74/e9/cb/74e9cbb3ea62e9b44e39ace1cc4fdad7.png",
       reader: new FileReader(),
     };
   },
