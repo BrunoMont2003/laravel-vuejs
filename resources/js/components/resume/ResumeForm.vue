@@ -197,18 +197,73 @@ export default {
     };
   },
   methods: {
+    validate(target, parent = "resume") {
+      let errors = [];
+      for (const [prop, value] of Object.entries(target)) {
+        if (Array.isArray(value)) {
+          if (value.length === 0) {
+            errors.push(`${parent} > ${prop} must have at least one element`);
+            continue;
+          }
+          for (const i in value) {
+            if (typeof value[i] === null || value[i] === "") {
+              errors.push(`${parent} > ${prop} > ${i} cannot be empty`);
+            } else if (typeof value[i] === "object") {
+              errors = errors.concat(
+                this.validate(value[i], `${parent} > ${prop} > ${i}`)
+              );
+            }
+          }
+        } else if (typeof value === "object") {
+          errors = errors.concat(this.validate(value, `${parent} > ${prop}`));
+        } else if (value === null || value === "") {
+          errors.push(`${parent} > ${prop} is required`);
+        }
+      }
+      return errors;
+    },
+    isValid() {
+      const { alert } = this.$data;
+      const { resume } = this.$props;
+      alert.messages = [];
+      const errors = this.validate(resume.content);
+      if (errors.length < 1) {
+        return true;
+      }
+      alert.messages = errors.slice(0, 3);
+      if (errors.length > 3) {
+        alert.messages.push(
+          `<strong>${errors.length - 3} more errors ...</strong>`
+        );
+      }
+      alert.type = "warning";
+      return false;
+    },
     async submit() {
+      const { alert } = this.$data;
+      const { resume, update } = this.$props;
+      if (!this.isValid()) {
+        return;
+      }
       try {
-        const { data, status } = this.update
-          ? await axios.put("/resumes/" + this.resume.id, this.resume)
-          : await axios.post("/resumes", this.resume);
+        const { data, status } = update
+          ? await axios.put("/resumes/" + resume.id, resume)
+          : await axios.post("/resumes", resume);
         console.log(data);
         if (status >= 200 && status < 300) {
-          window.location = "/home";
+          window.location = "/resumes";
         }
-      } catch (error) {
-        console.log(error.message);
-        this.alert.messages = ["Something went wrong: "];
+      } catch (e) {
+        alert.messages = [];
+        const errors = e.response.data.errors;
+        for (const [prop, value] of Object.entries(errors)) {
+          const origin = prop.split(".").join(" > ");
+          for (const error of value) {
+            const message = error.replace(prop, `<strong>${origin}</strong>`);
+            alert.messages.push(message);
+          }
+        }
+        alert.type = "danger";
       }
     },
   },
