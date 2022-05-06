@@ -15,6 +15,7 @@ export default {
       label: "Url",
       model: "url",
       styleClasses: ["col-12", "col-md-4", "px-1"],
+      validator: "url",
     },
     {
       type: "input",

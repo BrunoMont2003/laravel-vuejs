@@ -26,6 +26,7 @@ export default {
       label: "Website",
       model: "website",
       styleClasses: ["col-12", "col-md-4", "px-1"],
+      validator: "url",
     },
     // startDate
     {
