@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Resume;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 class ResumeController extends Controller
@@ -51,6 +52,7 @@ class ResumeController extends Controller
             }
             // dd($data);
             $resume = auth()->user()->resumes()->create($data);
+            Session::flash("alert", ["type" => "success", "messages" => ["Resume $resume->title created successfully"]]);
             return response($resume, Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             return response($th, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -73,9 +75,16 @@ class ResumeController extends Controller
                 $data['content']["basics"]["picture"] = $uri;
             }
             $resume->update($data);
+            Session::flash("alert", ["type" => "info", "messages" => ["Resume $resume->title updated successfully"]]);
             return response($data, Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response($th);
         }
+    }
+    public function destroy(Resume $resume)
+    {
+        $this->authorize('delete', $resume);
+        $resume->delete();
+        return redirect()->route("resumes.index")->with("alert", ["type" => "danger", "messages" => ["Resume $resume->title deleted successfully"]]);
     }
 }
