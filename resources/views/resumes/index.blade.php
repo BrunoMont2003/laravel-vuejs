@@ -2,40 +2,38 @@
 
 @section('content')
     <div class="container">
-        @if (session('alert'))
-            <div class="alert alert-{{ session('alert')['type'] }} alert-dismissible fade show" role="alert">
-                <strong>
-                    {{ session('alert')['message'] }}
-                </strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($resumes as $resume)
-                    <tr>
-                        <td>
-                            <a class="link-dark text-decoration-none" href="{{ route('resumes.show', $resume->id) }}">
-                                {{ $resume->title }}
-                            </a>
-                        </td>
-                        <td class="d-flex justify-content-end gap-4">
-                            <a href="{{ route('resumes.edit', $resume->id) }}" class="btn btn-primary">EDIT</a>
-                            <form method="POST" action="{{ route('resumes.destroy', $resume->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">DELETE</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach ($resumes as $resume)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $resume['title'] }}</h5>
+                            <p class="card-text">
+                                {{ $resume['content']['basics']['summary'] ?? 'No summary available' }}</p>
+                            <p>{{ $resume['created_at'] }}</p>
+                            <div class="d-flex gap-3">
+
+                                <a href="{{ route('resumes.edit', $resume->id) }}" class="btn btn-primary">
+                                    <font-awesome-icon icon="pencil"></font-awesome-icon>
+                                    <span class="ml-1">
+                                        EDIT
+                                    </span>
+                                </a>
+                                <form method="POST" action="{{ route('resumes.destroy', $resume->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <font-awesome-icon icon="trash"></font-awesome-icon>
+                                        <span class="ml-1">
+                                            DELETE
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endsection
