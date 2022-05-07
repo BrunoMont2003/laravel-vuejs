@@ -69,8 +69,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -87,6 +88,16 @@
         </nav>
 
         <main class="py-4">
+            <div class="container">
+                @if (session('alert'))
+                    <alert :messages="{{ json_encode(session('alert')['messages']) }}"
+                        type="{{ session('alert')['type'] }}">
+                    </alert>
+                @endif
+                @if ($errors->any())
+                    <alert :messages="{{ json_encode($errors->all()) }}" type="danger"></alert>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>
