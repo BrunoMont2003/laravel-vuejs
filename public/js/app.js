@@ -21015,6 +21015,7 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fort
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faTrash);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faHashtag);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faUpload);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faPencil);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21027,6 +21028,7 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fort
 
 Vue.component("ResumeForm", (__webpack_require__(/*! ./components/resume/ResumeForm.vue */ "./resources/js/components/resume/ResumeForm.vue")["default"]));
 Vue.component("FieldResumeImage", (__webpack_require__(/*! ./components/resume/vfg/FieldResumeImage.vue */ "./resources/js/components/resume/vfg/FieldResumeImage.vue")["default"]));
+Vue.component("Alert", (__webpack_require__(/*! ./components/reusable/Alert.vue */ "./resources/js/components/reusable/Alert.vue")["default"]));
 Vue.component("ListForm", (__webpack_require__(/*! ./components/resume/dynamic/ListForm.vue */ "./resources/js/components/resume/dynamic/ListForm.vue")["default"]));
 Vue.component("FontAwesomeIcon", _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon);
 /**
