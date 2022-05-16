@@ -20,7 +20,7 @@ class CreatePublicationsTable extends Migration
             $table->foreignId("resume_id");
             $table->foreignId("theme_id");
             $table->enum("visibility", ["public", "private", "hidden"])->default("public");
-            $table->string("url");
+            $table->string("url")->nullable();
         });
     }
 
