@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -22,4 +23,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/publications/preview', [PublicationController::class, 'preview'])->name('publications.preview');
 Route::resource('resumes', ResumeController::class);
+Route::resource('publications', PublicationController::class);

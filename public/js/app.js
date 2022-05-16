@@ -21232,6 +21232,7 @@ __webpack_require__.r(__webpack_exports__);
   {
     type: "input",
     inputType: "date",
+    format: "YYYY-MM-DD HH:mm:ss",
     label: "Date",
     model: "date",
     styleClasses: ["col-12", "col-md-4", "px-1"]

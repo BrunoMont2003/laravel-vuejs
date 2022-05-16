@@ -3,24 +3,23 @@
 @section('content')
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 g-4">
-            @foreach ($resumes as $resume)
+            @foreach ($publications as $publication)
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title overflow-hidden" style="text-overflow: ellipsis; white-space: nowrap;">
-                                {{ $resume['title'] }}</h5>
-                            <p class="card-text overflow-hidden" style="text-overflow: ellipsis; white-space: nowrap;">
-                                {{ $resume['content']['basics']['summary'] ?? 'No summary available' }}</p>
-                            <p>{{ $resume['created_at'] }}</p>
+                                {{ $publication['resume']['title'] }}</h5>
+                            <a href="{{ $publication['url'] }}">{{ $publication['url'] }}</a>
+                            <p>{{ $publication['created_at'] }}</p>
                             <div class="d-flex gap-3">
 
-                                <a href="{{ route('resumes.edit', $resume->id) }}" class="btn btn-primary">
+                                <a href="{{ route('publications.edit', $publication->id) }}" class="btn btn-primary">
                                     <font-awesome-icon icon="pencil"></font-awesome-icon>
                                     <span class="ml-1">
                                         EDIT
                                     </span>
                                 </a>
-                                <form method="POST" action="{{ route('resumes.destroy', $resume->id) }}">
+                                <form method="POST" action="{{ route('publications.destroy', $publication->id) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
