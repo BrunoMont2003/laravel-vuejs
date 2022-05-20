@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ResumeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,3 +27,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/publications/preview', [PublicationController::class, 'preview'])->name('publications.preview');
 Route::resource('resumes', ResumeController::class);
 Route::resource('publications', PublicationController::class);
+
+
+Route::prefix('/tokens')->middleware('auth')->name('tokens.')->group(function () {
+    Route::get('/create', fn () => view('tokens/create'))->name('create');
+
+    Route::post('/', function (Request $request) {
+        $token = $request->user()->createToken($request->token_name);
+
+        return ['token' => $token->plainTextToken];
+    })->name('store');
+});
