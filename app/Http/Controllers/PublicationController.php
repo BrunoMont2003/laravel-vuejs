@@ -159,6 +159,7 @@ class PublicationController extends Controller
      */
     public function destroy(Publication $publication)
     {
-        //
+        $this->authorize('delete', $publication);
+        $publication->delete();
     }
 }

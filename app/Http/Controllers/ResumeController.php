@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResume;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Resume;
@@ -84,7 +85,19 @@ class ResumeController extends Controller
     public function destroy(Resume $resume)
     {
         $this->authorize('delete', $resume);
-        $resume->delete();
+        try {
+            $resume->delete();
+        } catch (\Throwable $th) {
+
+            $publication = Publication::where('resume_id', $resume->id)->first();
+            return redirect()->route('resumes.index')->with(
+                'alert',
+                [
+                    'type' => 'danger',
+                    'messages' => ["Resume $resume->title cannot be deleted because publication <a href='$publication->url'>$publication->url</a> is using it! Delete the publication first!"]
+                ]
+            );
+        }
         return redirect()->route("resumes.index")->with("alert", ["type" => "danger", "messages" => ["Resume $resume->title deleted successfully"]]);
     }
 }
